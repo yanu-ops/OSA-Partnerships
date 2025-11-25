@@ -7,7 +7,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-      {/* Header */}
+    
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-start space-x-3 flex-1">
           <div className="bg-blue-50 p-2 rounded-lg">
@@ -24,7 +24,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
         </span>
       </div>
 
-      {/* Details */}
+   
       <div className="space-y-3">
         <div className="flex items-center text-sm text-gray-800">
           <User className="w-4 h-4 mr-2" />
@@ -58,7 +58,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
         )}
       </div>
 
-      {/* Actions */}
+
       <div className="flex items-center space-x-2 mt-4 pt-4 border-t border-gray-200">
         <button
           onClick={() => onView(partnership)}

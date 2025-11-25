@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Users, TrendingUp, TrendingDown } from 'lucide-react';
+import { Building2, TrendingUp, TrendingDown } from 'lucide-react';
 import { DEPARTMENTS } from '../../utils/constants';
 
 const DepartmentOverview = ({ stats }) => {

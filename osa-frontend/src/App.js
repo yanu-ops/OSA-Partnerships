@@ -5,18 +5,17 @@
   import PrivateRoute from './routes/PrivateRoute';
   import RoleRoute from './routes/RoleRoute';
 
-  // Auth Pages
+
   import Login from './pages/auth/Login';
   import Register from './pages/auth/Register';
 
-  // Admin Pages
+
   import AdminDashboard from './pages/admin/AdminDashboard';
   import AdminPanel from './pages/admin/AdminPanel';
 
-  // Department Pages
   import DepartmentDashboard from './pages/department/DepartmentDashboard';
 
-  // Viewer Pages
+
   import ViewerDashboard from './pages/viewer/ViewerDashboard';
 
   function App() {
@@ -25,11 +24,11 @@
         <Router>
           <div className="App">
             <Routes>
-              {/* Public Routes */}
+            
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
-              {/* Admin Routes */}
+           
               <Route
                 path="/admin/dashboard"
                 element={
@@ -51,7 +50,7 @@
                 }
               />
 
-              {/* Department Routes */}
+         
               <Route
                 path="/department/dashboard"
                 element={
@@ -63,7 +62,7 @@
                 }
               />
 
-              {/* Viewer Routes */}
+            
               <Route
                 path="/viewer/dashboard"
                 element={
@@ -75,14 +74,13 @@
                 }
               />
 
-              {/* Default Redirect */}
+          
               <Route path="/" element={<Navigate to="/login" replace />} />
               
-              {/* 404 - Redirect to login */}
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
 
-            {/* Toast Notifications */}
+         
             <Toaster
               position="top-right"
               toastOptions={{

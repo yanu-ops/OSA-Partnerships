@@ -20,7 +20,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
     if (user) {
       setFormData({
         email: user.email || '',
-        password: '', // Don't populate password for editing
+        password: '', 
         full_name: user.full_name || '',
         role: user.role || 'viewer',
         department: user.department || '',
@@ -60,7 +60,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
       newErrors.email = 'Valid email is required';
     }
     
-    // Password is only required for new users
+   
     if (!user && !validatePassword(formData.password)) {
       newErrors.password = 'Password must be at least 8 characters with uppercase, lowercase, and number';
     }
@@ -83,11 +83,11 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
       setLoading(true);
       
       const submitData = { ...formData };
-      // Remove password if it's empty (for updates)
+  
       if (user && !submitData.password) {
         delete submitData.password;
       }
-      // Remove department if not a department role
+
       if (submitData.role !== 'department') {
         submitData.department = null;
       }
@@ -102,7 +102,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+
         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">
             {user ? 'Edit User' : 'Create New User'}
@@ -116,10 +116,10 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
           </button>
         </div>
 
-        {/* Form */}
+   
         <form onSubmit={handleSubmit} className="p-6">
           <div className="space-y-4">
-            {/* Full Name */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Full Name <span className="text-red-500">*</span>
@@ -139,7 +139,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Email */}
+     
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email <span className="text-red-500">*</span>
@@ -159,7 +159,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Password */}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password {!user && <span className="text-red-500">*</span>}
@@ -185,7 +185,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Role */}
+      
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Role <span className="text-red-500">*</span>
@@ -209,7 +209,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Department (only for department role) */}
+            {}
             {formData.role === 'department' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -236,7 +236,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
               </div>
             )}
 
-            {/* Active Status */}
+            {}
             <div className="flex items-center">
               <input
                 type="checkbox"
@@ -251,7 +251,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
             </div>
           </div>
 
-          {/* Form Actions */}
+          {}
           <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
             <button
               type="button"

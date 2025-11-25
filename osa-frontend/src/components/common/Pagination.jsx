@@ -31,12 +31,12 @@ const Pagination = ({
     const maxVisible = 5;
 
     if (totalPages <= maxVisible) {
-      // Show all pages if total is small
+    
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Show smart pagination
+ 
       if (currentPage <= 3) {
         pages.push(1, 2, 3, 4, '...', totalPages);
       } else if (currentPage >= totalPages - 2) {
@@ -54,7 +54,7 @@ const Pagination = ({
   return (
     <div className="bg-white border-t border-gray-200 px-4 py-3 sm:px-6 rounded-b-lg">
       <div className="flex items-center justify-between">
-        {/* Left side - Items per page and info */}
+    
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <label className="text-sm text-gray-700">Items per page:</label>
@@ -78,9 +78,9 @@ const Pagination = ({
           </div>
         </div>
 
-        {/* Right side - Pagination controls */}
+     
         <div className="flex items-center space-x-2">
-          {/* Previous Button */}
+          
           <button
             onClick={handlePrevious}
             disabled={currentPage === 1}
@@ -94,7 +94,7 @@ const Pagination = ({
             Previous
           </button>
 
-          {/* Page Numbers */}
+       
           <div className="hidden sm:flex space-x-1">
             {getPageNumbers().map((page, index) => {
               if (page === '...') {
@@ -124,12 +124,11 @@ const Pagination = ({
             })}
           </div>
 
-          {/* Mobile page indicator */}
           <div className="sm:hidden text-sm text-gray-700">
             Page {currentPage} of {totalPages}
           </div>
 
-          {/* Next Button */}
+        
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}

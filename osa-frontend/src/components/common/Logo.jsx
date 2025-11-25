@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Squared logo with white background
 const Logo = ({ size = 'medium', className = '' }) => {
   const sizeClasses = {
     small: 'w-8 h-8',
@@ -22,7 +21,7 @@ const Logo = ({ size = 'medium', className = '' }) => {
   );
 };
 
-// Squared logo with red background (for navbar/sidebar)
+
 export const Logo1 = ({ size = 'medium', className = '' }) => {
   const sizeClasses = {
     small: 'w-8 h-8',

@@ -1,6 +1,3 @@
-// src/pages/auth/Login.jsx
-// SOLID RED THEME
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -51,17 +48,17 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        {/* Header */}
+      
         <div className="text-center mb-8">
   <div className="flex justify-center mb-4">
     <Logo size="xlarge" />
   </div>
   <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-  <p className="text-gray-700">OSA Partnership Monitoring System</p>
-  <p className="text-sm text-gray-500 mt-1">Holy Cross of Davao College, Inc.</p>
+ 
+  <p className="text-sm text-gray-500 mt-1">Holy Cross of Davao College</p>
 </div>
 
-        {/* Login Form */}
+   
         <div className="bg-white rounded-lg shadow-xl p-8 border border-gray-200">
           {error && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
@@ -71,7 +68,7 @@ const Login = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
+   
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -90,7 +87,7 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Password */}
+ 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -109,7 +106,7 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
+  
             <button
               type="submit"
               disabled={loading}
@@ -119,7 +116,6 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Register Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-700">
               Don't have an account?{' '}

@@ -17,6 +17,14 @@ password: Admin@123
 email: ste@hcdc.edu.ph
 password: Ste12345
 
+--BSMT account--
+email: bsmt@hcdc.edu.ph
+password: Bsmt12345
+
+--CCJE account--
+email: ccje@hcdc.edu.ph
+password: Ccje12345
+
 --OTHER DEPARTMENT ACCOUNT WILL BE ADDED HERE LATER NIGGAS--
 
 --Viewer account--

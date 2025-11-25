@@ -1,11 +1,8 @@
-// src/components/common/Navbar.jsx
-// SOLID RED VERSION
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { LogOut, User, ChevronDown } from 'lucide-react';
-import Logo, { Logo1 } from './Logo';
+import  { Logo1 } from './Logo';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -41,7 +38,7 @@ const Navbar = () => {
     <nav className="bg-red-700 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          
           <div className="flex items-center space-x-3">
           <Logo1 size="medium" />
           <div>
@@ -50,7 +47,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* User Menu */}
+          
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -90,7 +87,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Click outside to close dropdown */}
+      {}
       {dropdownOpen && (
         <div
           className="fixed inset-0 z-40"

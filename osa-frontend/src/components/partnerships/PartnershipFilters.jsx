@@ -15,7 +15,7 @@ const PartnershipFilters = ({ filters, onFilterChange, onClearFilters, showDepar
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Search */}
+  
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Search</label>
           <div className="relative">
@@ -30,7 +30,7 @@ const PartnershipFilters = ({ filters, onFilterChange, onClearFilters, showDepar
           </div>
         </div>
 
-        {/* Department Filter */}
+  
         {showDepartmentFilter && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
@@ -47,7 +47,7 @@ const PartnershipFilters = ({ filters, onFilterChange, onClearFilters, showDepar
           </div>
         )}
 
-        {/* Status Filter */}
+ 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
           <select
@@ -62,7 +62,7 @@ const PartnershipFilters = ({ filters, onFilterChange, onClearFilters, showDepar
           </select>
         </div>
 
-        {/* School Year Filter */}
+  
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">School Year</label>
           <input

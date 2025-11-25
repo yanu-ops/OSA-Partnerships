@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Settings, LogOut, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import Logo, { Logo1 } from './Logo';
+import { Logo1 } from './Logo';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -28,7 +28,7 @@ const Sidebar = () => {
   return (
     <div className={`bg-red-700 shadow-lg h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'} sticky top-0`}>
       
-      {/* Collapse/Expand Button */}
+
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="absolute -right-2 top-6 bg-white border-2 border-red-700 rounded-full p-1 hover:bg-red-50 transition-colors z-10"
@@ -42,9 +42,9 @@ const Sidebar = () => {
       </button>
 
       <div className="flex flex-col h-full">
-        {/* Top Section - Logo & Menu */}
+      
         <div className="flex-1 p-4">
-          {/* Logo Section */}
+       
           <div className="mb-6 pb-4 border-b border-red-500">
             {!isCollapsed ? (
               <div className="flex items-center space-x-3">
@@ -61,7 +61,6 @@ const Sidebar = () => {
             )}
           </div>
 
-          {/* Menu Items */}
           <nav className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -84,7 +83,7 @@ const Sidebar = () => {
           </nav>
         </div>
 
-        {/* Bottom Section - User Info */}
+      
         <div className="border-t border-red-500">
           {!isCollapsed ? (
             <div className="p-4">

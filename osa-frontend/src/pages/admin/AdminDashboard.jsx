@@ -1,6 +1,3 @@
-// src/pages/admin/AdminDashboard.jsx
-// NO HEADER VERSION
-
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
@@ -35,10 +32,10 @@ const AdminDashboard = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [partnershipToDelete, setPartnershipToDelete] = useState(null);
 
-  // Pagination
+
   const pagination = usePagination(partnerships, 6);
 
-  // Reset pagination when filters change (include 'pagination' in deps per eslint)
+
   useEffect(() => {
     pagination.resetPagination();
   }, [filters, pagination]);
@@ -102,7 +99,7 @@ const AdminDashboard = () => {
       <Sidebar />
       
       <main className="flex-1 p-8 overflow-y-auto">
-        {/* Stats Cards */}
+   
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <StatsCard
             title="Total Partnerships"
@@ -130,7 +127,7 @@ const AdminDashboard = () => {
           />
         </div>
 
-        {/* Actions Bar */}
+    
         <div className="mb-6 flex justify-between items-center">
           <h2 className="text-xl font-semibold text-gray-900">All Partnerships</h2>
           <button
@@ -142,7 +139,6 @@ const AdminDashboard = () => {
           </button>
         </div>
 
-        {/* Filters */}
         <PartnershipFilters
           filters={filters}
           onFilterChange={updateFilters}
@@ -150,7 +146,7 @@ const AdminDashboard = () => {
           showDepartmentFilter={true}
         />
 
-        {/* Partnerships List - Grouped by Department */}
+   
         <PartnershipList
           partnerships={pagination.currentItems}
           onEdit={handleEdit}
@@ -162,7 +158,7 @@ const AdminDashboard = () => {
           userDepartment={user?.department}
         />
 
-        {/* Form Modal */}
+     
         <PartnershipForm
           isOpen={isFormOpen}
           onClose={() => {
@@ -174,7 +170,7 @@ const AdminDashboard = () => {
           loading={false}
         />
 
-        {/* View Modal */}
+
         <PartnershipModal
           isOpen={isViewModalOpen}
           onClose={() => {
@@ -184,7 +180,6 @@ const AdminDashboard = () => {
           partnership={selectedPartnership}
         />
 
-        {/* Delete Confirmation */}
         <ConfirmDialog
           isOpen={isDeleteDialogOpen}
           onClose={() => setIsDeleteDialogOpen(false)}

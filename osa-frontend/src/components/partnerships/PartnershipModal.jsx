@@ -10,7 +10,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
       <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+      
         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">{partnership.business_name}</h2>
@@ -24,9 +24,9 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
           </button>
         </div>
 
-        {/* Content */}
+    
         <div className="p-6 space-y-6">
-          {/* Status */}
+       
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700">Status</span>
             <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor}`}>
@@ -34,7 +34,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
             </span>
           </div>
 
-          {/* Contact Information */}
+          
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <User className="w-5 h-5 mr-2" />
@@ -81,7 +81,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
             </div>
           </div>
 
-          {/* Management */}
+        
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Management</h3>
             <div className="bg-gray-50 rounded-lg p-4 space-y-2">
@@ -98,7 +98,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
             </div>
           </div>
 
-          {/* Partnership Duration */}
+         
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Calendar className="w-5 h-5 mr-2" />
@@ -120,7 +120,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
             </div>
           </div>
 
-          {/* Remarks */}
+      
           {partnership.remarks && (
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
@@ -134,7 +134,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership }) => {
           )}
         </div>
 
-        {/* Footer */}
+      
         <div className="border-t border-gray-200 p-6">
           <button
             onClick={onClose}

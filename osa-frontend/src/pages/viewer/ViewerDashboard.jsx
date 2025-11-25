@@ -24,10 +24,10 @@ const ViewerDashboard = () => {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedPartnership, setSelectedPartnership] = useState(null);
 
-  // Pagination
+
   const pagination = usePagination(partnerships, 6);
 
-  // Reset pagination when filters change
+  
   useEffect(() => {
     pagination.resetPagination();
   }, [filters, pagination]);
@@ -53,7 +53,7 @@ const ViewerDashboard = () => {
       <Navbar />
       
       <main className="max-w-7xl mx-auto p-8">
-        {/* Header */}
+   
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Partnership Directory</h1>
           <p className="text-gray-600">Browse institutional partnerships</p>
@@ -61,7 +61,6 @@ const ViewerDashboard = () => {
 
      
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <StatsCard
             title="Total Partnerships"
@@ -89,7 +88,6 @@ const ViewerDashboard = () => {
           />
         </div>
 
-        {/* Filters */}
         <PartnershipFilters
           filters={filters}
           onFilterChange={updateFilters}
@@ -97,7 +95,7 @@ const ViewerDashboard = () => {
           showDepartmentFilter={true}
         />
 
-        {/* Partnerships List */}
+  
         <PartnershipList
           partnerships={pagination.currentItems}
           onEdit={() => {}}
@@ -119,7 +117,7 @@ const ViewerDashboard = () => {
           }
         />
 
-        {/* View Modal (Limited info) */}
+    
         <PartnershipModal
           isOpen={isViewModalOpen}
           onClose={() => {

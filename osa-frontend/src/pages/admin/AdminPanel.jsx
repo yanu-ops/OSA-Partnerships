@@ -14,7 +14,7 @@ const AdminPanel = () => {
   const [dashboardStats, setDashboardStats] = useState(null);
   const [partnershipStats, setPartnershipStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview'); // overview, analytics, users
+  const [activeTab, setActiveTab] = useState('overview'); 
 
   useEffect(() => {
     fetchData();
@@ -49,7 +49,7 @@ const AdminPanel = () => {
       <Sidebar />
       
       <main className="flex-1 p-8">
-        {/* Quick Stats */}
+     
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <StatsCard
               title="Total Partnerships"
@@ -81,7 +81,7 @@ const AdminPanel = () => {
             />
           </div>
 
-          {/* Tabs */}
+     
           <div className="bg-white rounded-lg shadow-md border border-gray-200 mb-6">
             <div className="border-b border-gray-200">
               <nav className="flex -mb-px">
@@ -119,7 +119,7 @@ const AdminPanel = () => {
             </div>
           </div>
 
-          {/* Tab Content */}
+ 
           {activeTab === 'overview' && (
             <div className="space-y-6">
               <DepartmentOverview stats={partnershipStats} />
@@ -162,7 +162,7 @@ const AdminPanel = () => {
                   />
                 </div>
 
-                {/* Department Breakdown */}
+          
                 <div className="mt-8">
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">Partnerships by Department</h4>
                   <div className="space-y-3">
@@ -186,7 +186,7 @@ const AdminPanel = () => {
                 </div>
               </div>
 
-              {/* User Statistics */}
+      
               <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
                 <h3 className="text-xl font-bold text-gray-900 mb-6">User Statistics</h3>
                 

@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-// Request interceptor - Add token to requests
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
@@ -22,12 +22,12 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor - Handle errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid - logout user
+      
       localStorage.removeItem(STORAGE_KEYS.TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       window.location.href = '/login';

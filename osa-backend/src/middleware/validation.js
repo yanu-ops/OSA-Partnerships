@@ -27,7 +27,7 @@ const registerValidation = [
   body('role').isIn(['admin', 'department', 'viewer']).withMessage('Invalid role'),
   body('department')
     .if(body('role').equals('department'))
-    .isIn(['STE', 'CET', 'CCJE', 'HousoCom', 'BSMT', 'SBME', 'CHATME'])
+    .isIn(['STE', 'CET', 'CCJE', 'HuSoCom', 'BSMT', 'SBME', 'CHATME'])
     .withMessage('Valid department is required for department role'),
   validate
 ];
@@ -35,7 +35,7 @@ const registerValidation = [
 const partnershipValidation = [
   body('business_name').trim().notEmpty().withMessage('Business name is required'),
   body('department')
-    .isIn(['STE', 'CET', 'CCJE', 'HousoCom', 'BSMT', 'SBME', 'CHATME'])
+    .isIn(['STE', 'CET', 'CCJE', 'HuSoCom', 'BSMT', 'SBME', 'CHATME'])
     .withMessage('Valid department is required'),
   body('address').trim().notEmpty().withMessage('Address is required'),
   body('contact_person').trim().notEmpty().withMessage('Contact person is required'),

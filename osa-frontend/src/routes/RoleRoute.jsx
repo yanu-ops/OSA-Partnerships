@@ -15,7 +15,7 @@ const RoleRoute = ({ children, allowedRoles }) => {
   }
 
   if (!allowedRoles.includes(user?.role)) {
-    // Redirect based on user role
+   
     if (user?.role === 'admin') {
       return <Navigate to="/admin/dashboard" replace />;
     } else if (user?.role === 'department') {

@@ -6,7 +6,7 @@ const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
-// Middleware
+
 app.use(cors({
   origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
   credentials: true
@@ -14,23 +14,22 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Request logging
+
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
   next();
 });
 
-// Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// API Routes
+
 app.use('/api/auth', authRoutes);
 app.use('/api/partnerships', partnershipRoutes);
 app.use('/api/admin', adminRoutes);
 
-// 404 Handler
+
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -38,7 +37,7 @@ app.use((req, res) => {
   });
 });
 
-// Error Handler
+
 app.use((err, req, res, next) => {
   console.error('Error:', err);
 

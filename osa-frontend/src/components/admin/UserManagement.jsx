@@ -110,7 +110,7 @@ const UserManagement = () => {
 
   return (
     <div className="space-y-6">
-      {/* Stats Overview */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Total Users</p>
@@ -134,9 +134,9 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {/* User Management Card */}
+      {}
       <div className="bg-white rounded-lg shadow-md border border-gray-200">
-        {/* Header */}
+        {}
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -152,7 +152,7 @@ const UserManagement = () => {
             </button>
           </div>
 
-          {/* Search */}
+          {}
           <div className="mt-4">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -167,7 +167,7 @@ const UserManagement = () => {
           </div>
         </div>
 
-        {/* Users Table */}
+        {}
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -246,7 +246,7 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {/* User Form Modal */}
+      {}
       <UserForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
@@ -254,7 +254,7 @@ const UserManagement = () => {
         user={selectedUser}
       />
 
-      {/* Delete Confirmation Dialog */}
+      {}
       <ConfirmDialog
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}

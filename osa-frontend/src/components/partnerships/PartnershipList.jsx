@@ -25,7 +25,7 @@ const PartnershipList = ({ partnerships, onEdit, onDelete, onView, canEdit, show
     return (
       <div className="space-y-8">
         {Object.entries(grouped).map(([dept, deptPartnerships]) => {
-          // Separate pagination hook for each department
+          
           const DepartmentSection = () => {
             const deptPagination = usePagination(deptPartnerships, itemsPerPage);
             
@@ -46,7 +46,7 @@ const PartnershipList = ({ partnerships, onEdit, onDelete, onView, canEdit, show
                     />
                   ))}
                 </div>
-                {/* Show pagination only if more than itemsPerPage */}
+               
                 {deptPartnerships.length > itemsPerPage && pagination && (
                   <div className="mt-6">
                     {React.cloneElement(pagination, {

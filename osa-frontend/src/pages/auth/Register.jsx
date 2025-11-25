@@ -1,6 +1,3 @@
-// src/pages/auth/Register.jsx
-// SOLID RED THEME
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -81,16 +78,16 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        {/* Header */}
+   
         <div className="text-center mb-8">
   <div className="flex justify-center mb-4">
     <Logo size="xlarge" />
   </div>
   <h1 className="text-3xl font-bold text-gray-900 mb-1">Create Account</h1>
-  <p className="text-sm text-gray-500 mt-0">Holy Cross of Davao College, Inc.</p>
+  <p className="text-sm text-gray-500 mt-0">Holy Cross of Davao College</p>
 </div>
 
-        {/* Register Form */}
+ 
         <div className="bg-white rounded-lg shadow-xl p-10 border border-gray-200">
           {errors.general && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
@@ -100,7 +97,7 @@ const Register = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Full Name */}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Full Name
@@ -123,7 +120,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* Email */}
+         
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
@@ -146,7 +143,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* Password */}
+         
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -169,7 +166,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* Confirm Password */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Confirm Password
@@ -192,7 +189,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* Submit Button */}
+       
             <button
               type="submit"
               disabled={loading}
@@ -202,7 +199,7 @@ const Register = () => {
             </button>
           </form>
 
-          {/* Login Link */}
+     
           <div className="mt-5 text-center">
             <p className="text-sm text-gray-700">
               Already have an account?{' '}
