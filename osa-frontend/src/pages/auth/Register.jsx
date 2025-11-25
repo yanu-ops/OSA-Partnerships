@@ -4,9 +4,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { UserPlus, Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle } from 'lucide-react';
 import { validateEmail, validatePassword } from '../../utils/validation';
 import toast from 'react-hot-toast';
+import Logo from '../../components/common/Logo';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -82,15 +83,15 @@ const Register = () => {
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-red-700 rounded-full mb-4">
-            <UserPlus className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-          <p className="text-gray-700">Register an Account</p>
-        </div>
+  <div className="flex justify-center mb-4">
+    <Logo size="xlarge" />
+  </div>
+  <h1 className="text-3xl font-bold text-gray-900 mb-1">Create Account</h1>
+  <p className="text-sm text-gray-500 mt-0">Holy Cross of Davao College, Inc.</p>
+</div>
 
         {/* Register Form */}
-        <div className="bg-white rounded-lg shadow-xl p-8 border border-gray-200">
+        <div className="bg-white rounded-lg shadow-xl p-10 border border-gray-200">
           {errors.general && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
               <AlertCircle className="w-5 h-5 text-red-700 mt-0.5 mr-3 flex-shrink-0" />
@@ -101,7 +102,7 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Full Name
               </label>
               <div className="relative">
@@ -124,7 +125,7 @@ const Register = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
               </label>
               <div className="relative">
@@ -147,7 +148,7 @@ const Register = () => {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <div className="relative">
@@ -170,7 +171,7 @@ const Register = () => {
 
             {/* Confirm Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Confirm Password
               </label>
               <div className="relative">
@@ -202,7 +203,7 @@ const Register = () => {
           </form>
 
           {/* Login Link */}
-          <div className="mt-6 text-center">
+          <div className="mt-5 text-center">
             <p className="text-sm text-gray-700">
               Already have an account?{' '}
               <Link to="/login" className="text-blue-700 hover:text-blue-700 font-medium">

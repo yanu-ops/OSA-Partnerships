@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Settings, LogOut, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
+import Logo, { Logo1 } from './Logo';
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -9,16 +10,8 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
-    {
-      name: 'Dashboard',
-      path: '/admin/dashboard',
-      icon: LayoutDashboard
-    },
-    {
-      name: 'Admin Panel',
-      path: '/admin/panel',
-      icon: Settings
-    }
+    { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
+    { name: 'Admin Panel', path: '/admin/panel', icon: Settings }
   ];
 
   const handleLogout = () => {
@@ -26,20 +19,19 @@ const Sidebar = () => {
     navigate('/login');
   };
 
-  const getRoleBadge = () => {
-    return (
-      <span className="bg-red-800 text-white px-2 py-1 rounded-full text-xs font-medium">
-        Administrator
-      </span>
-    );
-  };
+  const getRoleBadge = () => (
+    <span className="bg-red-800 text-white px-2 py-1 rounded-full text-xs font-medium">
+      Administrator
+    </span>
+  );
 
   return (
-  <div className={`bg-red-700 shadow-lg h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'} sticky top-0`}>      
+    <div className={`bg-red-700 shadow-lg h-screen transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'} sticky top-0`}>
+      
       {/* Collapse/Expand Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-6 bg-white border-2 border-red-700 rounded-full p-1 hover:bg-red-50 transition-colors z-10"
+        className="absolute -right-2 top-6 bg-white border-2 border-red-700 rounded-full p-1 hover:bg-red-50 transition-colors z-10"
         title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       >
         {isCollapsed ? (
@@ -56,9 +48,7 @@ const Sidebar = () => {
           <div className="mb-6 pb-4 border-b border-red-500">
             {!isCollapsed ? (
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-700 font-bold text-xl">OSA</span>
-                </div>
+                <Logo1 size="medium" />
                 <div>
                   <h2 className="text-lg font-bold text-white leading-tight">OSA Partnership</h2>
                   <p className="text-xs text-red-100"><strong>Monitoring System</strong></p>
@@ -66,9 +56,7 @@ const Sidebar = () => {
               </div>
             ) : (
               <div className="flex justify-center">
-                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-red-700 font-bold text-xl">O</span>
-                </div>
+                <Logo1 size="medium" />
               </div>
             )}
           </div>
@@ -83,9 +71,7 @@ const Sidebar = () => {
                   to={item.path}
                   className={({ isActive }) =>
                     `flex items-center ${isCollapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-lg transition-all ${
-                      isActive
-                        ? 'bg-red-800 text-white font-medium'
-                        : 'text-white hover:bg-red-800'
+                      isActive ? 'bg-red-800 text-white font-medium' : 'text-white hover:bg-red-800'
                     }`
                   }
                   title={isCollapsed ? item.name : ''}
@@ -102,7 +88,6 @@ const Sidebar = () => {
         <div className="border-t border-red-500">
           {!isCollapsed ? (
             <div className="p-4">
-              {/* User Info */}
               <div className="mb-3 pb-3 border-b border-red-500">
                 <div className="flex items-start space-x-2 mb-2">
                   <User className="w-4 h-4 text-white mt-1 flex-shrink-0" />
@@ -114,7 +99,6 @@ const Sidebar = () => {
                 {getRoleBadge()}
               </div>
 
-              {/* Logout Button */}
               <button
                 onClick={handleLogout}
                 className="w-full flex items-center space-x-2 px-4 py-2 text-white hover:bg-red-700 rounded-lg transition-colors"
@@ -125,12 +109,9 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="p-4 flex flex-col items-center space-y-3">
-              {/* User Icon */}
               <div className="w-10 h-10 bg-red-700 rounded-full flex items-center justify-center">
                 <User className="w-5 h-5 text-white" />
               </div>
-              
-              {/* Logout Icon */}
               <button
                 onClick={handleLogout}
                 className="p-2 text-white hover:bg-red-700 rounded-lg transition-colors"

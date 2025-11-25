@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { LogOut, User, ChevronDown } from 'lucide-react';
+import Logo, { Logo1 } from './Logo';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -42,10 +43,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-red-700 font-bold text-xl">OSA</span>
-            </div>
+          <Logo1 size="medium" />
+          <div>
             <h1 className="text-xl font-bold text-white">OSA Partnership System</h1>
+            <p className="text-xs text-red-100">Holy Cross of Davao College, Inc.</p>
+            </div>
           </div>
 
           {/* User Menu */}

@@ -4,8 +4,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react';
+import { Mail, Lock, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import Logo from '../../components/common/Logo';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,12 +53,13 @@ const Login = () => {
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-red-700 rounded-full mb-4">
-            <LogIn className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-700">OSA Partnership Monitoring System</p>
-        </div>
+  <div className="flex justify-center mb-4">
+    <Logo size="xlarge" />
+  </div>
+  <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+  <p className="text-gray-700">OSA Partnership Monitoring System</p>
+  <p className="text-sm text-gray-500 mt-1">Holy Cross of Davao College, Inc.</p>
+</div>
 
         {/* Login Form */}
         <div className="bg-white rounded-lg shadow-xl p-8 border border-gray-200">
