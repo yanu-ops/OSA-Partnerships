@@ -1,90 +1,30 @@
-# ----------------------------------------
-# macOS
-# ----------------------------------------
+# --- macOS ---
 .DS_Store
-.AppleDouble
-.LSOverride
-__MACOSX/
 
-# ----------------------------------------
-# Node & npm
-# ----------------------------------------
+# --- Node backend & frontend ---
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# ----------------------------------------
-# Environment Variables
-# ----------------------------------------
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Backend env
-osa-backend/.env
-
-# ----------------------------------------
-# Logs
-# ----------------------------------------
-logs/
-*.log
-*.pid
-*.seed
-*.pid.lock
-
-# ----------------------------------------
-# Build Output
-# ----------------------------------------
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 dist/
 build/
-coverage/
 
-# React build (frontend)
-osa-frontend/build/
-osa-frontend/dist/
+# --- Environment Files ---
+*.env
+.env
+.env.local
+.env.development
+.env.production
 
-# ----------------------------------------
-# Cache & Temp
-# ----------------------------------------
-.cache/
+# --- Logs ---
+logs/
+*.log
+
+# --- Editor ---
 .vscode/
 .idea/
-*.swp
-*.swo
-*.tmp
-*.temp
 
-# ----------------------------------------
-# OS Generated Files
-# ----------------------------------------
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# ----------------------------------------
-# Backend-specific (Node/Express)
-# ----------------------------------------
-osa-backend/node_modules/
-osa-backend/uploads/
-osa-backend/coverage/
-
-# Clean compiled files
-osa-backend/src/**/*.js.map
-
-# ----------------------------------------
-# Frontend-specific (React)
-# ----------------------------------------
-osa-frontend/node_modules/
-osa-frontend/.parcel-cache/
-osa-frontend/.vite/
-osa-frontend/.next/
-
-# ----------------------------------------
-# Prevent nested Git issues
-# ----------------------------------------
-osa-frontend/.git/
-osa-backend/.git/
+# --- Python (if backend is Django) ---
+__pycache__/
+*.pyc
+db.sqlite3
