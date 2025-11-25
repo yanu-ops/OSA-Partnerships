@@ -132,9 +132,9 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-semibold text-gray-900">All Partnerships</h2>
           <button
             onClick={handleCreateNew}
-            className="flex items-center space-x-2 px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="w-5 h-5 " />
             <span>Add Partnership</span>
           </button>
         </div>

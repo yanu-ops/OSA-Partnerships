@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Search, Users as UsersIcon } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, Users as UsersIcon, Shield, Eye, Building2, Key } from 'lucide-react';
 import adminService from '../../services/admin.service';
 import UserForm from './UserForm';
 import ConfirmDialog from '../common/ConfirmDialog';
+import ChangePasswordModal from './ChangePasswordModal';
 import toast from 'react-hot-toast';
 
 const UserManagement = () => {
@@ -13,6 +14,9 @@ const UserManagement = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [userToChangePassword, setUserToChangePassword] = useState(null);
+  const [activeTab, setActiveTab] = useState('all'); // all, admin, department, viewer
 
   useEffect(() => {
     fetchUsers();
@@ -42,6 +46,24 @@ const UserManagement = () => {
   const handleDeleteClick = (user) => {
     setUserToDelete(user);
     setIsDeleteDialogOpen(true);
+  };
+
+  const handleChangePasswordClick = (user) => {
+    setUserToChangePassword(user);
+    setIsChangePasswordOpen(true);
+  };
+
+  const handleChangePasswordSubmit = async (newPassword) => {
+    if (userToChangePassword) {
+      const result = await adminService.changeUserPassword(userToChangePassword.id, newPassword);
+      if (result.success) {
+        toast.success('Password changed successfully');
+        setIsChangePasswordOpen(false);
+        setUserToChangePassword(null);
+      } else {
+        toast.error(result.message || 'Failed to change password');
+      }
+    }
   };
 
   const handleDeleteConfirm = async () => {
@@ -86,11 +108,18 @@ const UserManagement = () => {
     );
   };
 
-  const filteredUsers = users.filter(user =>
-    user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.role.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter users by search term and active tab
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = 
+      user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user.department && user.department.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesTab = activeTab === 'all' || user.role === activeTab;
+    
+    return matchesSearch && matchesTab;
+  });
 
   const userStats = {
     total: users.length,
@@ -110,7 +139,7 @@ const UserManagement = () => {
 
   return (
     <div className="space-y-6">
-      {}
+      {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Total Users</p>
@@ -134,9 +163,9 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {}
+      {/* User Management Card */}
       <div className="bg-white rounded-lg shadow-md border border-gray-200">
-        {}
+        {/* Header */}
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -152,13 +181,13 @@ const UserManagement = () => {
             </button>
           </div>
 
-          {}
+          {/* Search */}
           <div className="mt-4">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search users by name, email, or role..."
+                placeholder="Search users by name, email, role, or department..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -167,7 +196,72 @@ const UserManagement = () => {
           </div>
         </div>
 
-        {}
+        {/* Tabs */}
+        <div className="border-b border-gray-200">
+          <nav className="flex -mb-px">
+            <button
+              onClick={() => setActiveTab('all')}
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'all'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <UsersIcon className="w-4 h-4" />
+              <span>All Users</span>
+              <span className="ml-2 px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-800">
+                {userStats.total}
+              </span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab('admin')}
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'admin'
+                  ? 'border-purple-600 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <Shield className="w-4 h-4" />
+              <span>Administrators</span>
+              <span className="ml-2 px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800">
+                {userStats.admin}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('department')}
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'department'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <Building2 className="w-4 h-4" />
+              <span>Departments</span>
+              <span className="ml-2 px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                {userStats.department}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('viewer')}
+              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'viewer'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <Eye className="w-4 h-4" />
+              <span>Viewers</span>
+              <span className="ml-2 px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                {userStats.viewer}
+              </span>
+            </button>
+          </nav>
+        </div>
+
+        {/* Users Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -193,7 +287,7 @@ const UserManagement = () => {
               {filteredUsers.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="px-6 py-12 text-center text-gray-500">
-                    No users found
+                    {searchTerm ? 'No users found matching your search' : `No ${activeTab !== 'all' ? activeTab : ''} users found`}
                   </td>
                 </tr>
               ) : (
@@ -230,12 +324,21 @@ const UserManagement = () => {
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => handleDeleteClick(user)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Delete user"
+                          onClick={() => handleChangePasswordClick(user)}
+                          className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors"
+                          title="Change password"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Key className="w-4 h-4" />
                         </button>
+                        {user.role !== 'admin' && (
+                          <button
+                            onClick={() => handleDeleteClick(user)}
+                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title="Delete user"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -244,9 +347,20 @@ const UserManagement = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Results Summary */}
+        {filteredUsers.length > 0 && (
+          <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <p className="text-sm text-gray-600">
+              Showing <span className="font-medium text-gray-900">{filteredUsers.length}</span> of{' '}
+              <span className="font-medium text-gray-900">{users.length}</span> total users
+              {activeTab !== 'all' && ` (${activeTab} only)`}
+            </p>
+          </div>
+        )}
       </div>
 
-      {}
+      {/* User Form Modal */}
       <UserForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
@@ -254,7 +368,7 @@ const UserManagement = () => {
         user={selectedUser}
       />
 
-      {}
+      {/* Delete Confirmation Dialog */}
       <ConfirmDialog
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
@@ -263,6 +377,17 @@ const UserManagement = () => {
         message={`Are you sure you want to delete ${userToDelete?.full_name}? This action cannot be undone.`}
         confirmText="Delete"
         cancelText="Cancel"
+      />
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => {
+          setIsChangePasswordOpen(false);
+          setUserToChangePassword(null);
+        }}
+        onSubmit={handleChangePasswordSubmit}
+        user={userToChangePassword}
       />
     </div>
   );

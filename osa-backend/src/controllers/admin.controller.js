@@ -94,6 +94,20 @@ class AdminController {
         });
       }
 
+      // Check if user is admin
+      const { data: userToDelete } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', id)
+        .single();
+
+      if (userToDelete && userToDelete.role === 'admin') {
+        return res.status(403).json({
+          success: false,
+          message: 'Cannot delete admin users'
+        });
+      }
+
       const { error } = await supabase
         .from('users')
         .delete()
@@ -104,6 +118,36 @@ class AdminController {
       res.json({
         success: true,
         message: 'User deleted successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async changeUserPassword(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { newPassword } = req.body;
+
+      if (!newPassword || newPassword.length < 8) {
+        return res.status(400).json({
+          success: false,
+          message: 'Password must be at least 8 characters'
+        });
+      }
+
+      const passwordHash = await bcrypt.hash(newPassword, 10);
+
+      const { error } = await supabase
+        .from('users')
+        .update({ password_hash: passwordHash })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      res.json({
+        success: true,
+        message: 'Password changed successfully'
       });
     } catch (error) {
       next(error);

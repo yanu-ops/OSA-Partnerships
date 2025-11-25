@@ -37,13 +37,13 @@ export const formatDate = (date) => {
   
   export const getDepartmentLabel = (value) => {
     const departments = {
-      'STE': 'Science, Technology, Engineering',
-      'CET': 'Computer Engineering Technology',
-      'CCJE': 'Criminology and Criminal Justice Education',
-      'HousoCom': 'Hotel and Restaurant Services Community',
-      'BSMT': 'Marine Transportation',
-      'SBME': 'Marine Engineering',
-      'CHATME': 'Teaching and Maritime Education'
+      'STE': 'School of Teacher Education',
+      'CET': 'College of Engineering and Technology',
+      'CCJE': 'College of Criminal Justice Education',
+      'HuSoCom': 'Humanities, Social Sciences and Communication',
+      'BSMT': 'Bachelor of Science in Marine Transportation',
+      'SBME': 'School of Business and Management Education',
+      'CHATME': 'College of Hospitality and Tourism Management Education'
     };
     return departments[value] || value;
   };

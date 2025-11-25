@@ -160,7 +160,7 @@ class PartnershipService {
       by_department: {}
     };
 
-    ['STE', 'CET', 'CCJE', 'HousoCom', 'BSMT', 'SBME', 'CHATME'].forEach(dept => {
+    ['STE', 'CET', 'CCJE', 'HuSoCom', 'BSMT', 'SBME', 'CHATME'].forEach(dept => {
       stats.by_department[dept] = data.filter(p => p.department === dept).length;
     });
 

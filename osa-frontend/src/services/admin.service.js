@@ -66,6 +66,24 @@ class AdminService {
     }
   }
 
+  async changeUserPassword(id, newPassword) {
+    try {
+      const response = await api.post(
+        API_ENDPOINTS.ADMIN.CHANGE_USER_PASSWORD(id),
+        { newPassword }
+      );
+      if (response.data.success) {
+        return { success: true };
+      }
+      return { success: false };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Failed to change password',
+      };
+    }
+  }
+
   async getDashboardStats() {
     try {
       const response = await api.get(API_ENDPOINTS.ADMIN.DASHBOARD_STATS);
