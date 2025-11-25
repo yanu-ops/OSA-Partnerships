@@ -13,6 +13,8 @@ after that
 email: admin@hcdc.edu.ph
 password: Admin@123
 
+-----------------------------------
+
 --STE account--
 email: ste@hcdc.edu.ph
 password: Ste12345
@@ -25,7 +27,23 @@ password: Bsmt12345
 email: ccje@hcdc.edu.ph
 password: Ccje12345
 
---OTHER DEPARTMENT ACCOUNT WILL BE ADDED HERE LATER NIGGAS--
+--CET account--
+email: cet@hcdc.edu.ph
+password: Cet12345
+
+--CHATME account--
+email: chatme@hcdc.edu.ph
+password: Chatme12345
+
+--SBME account--
+email: sbme@hcdc.edu.ph
+password: Sbme12345
+
+--HuSoCom account--
+email: husocom @hcdc.edu.ph
+password: Husocom12345
+
+-----------------------------------------
 
 --Viewer account--
 email: john@hcdc.edu.ph
