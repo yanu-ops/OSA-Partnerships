@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Image as ImageIcon } from 'lucide-react';
 import { DEPARTMENTS, PARTNERSHIP_STATUS } from '../../utils/constants';
 import { validateRequired, validateEmail } from '../../utils/validation';
 
@@ -16,10 +16,12 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
     date_established: '',
     expiration_date: '',
     status: 'active',
-    remarks: ''
+    remarks: '',
+    image: null
   });
 
   const [errors, setErrors] = useState({});
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     if (partnership) {
@@ -35,10 +37,17 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
         date_established: partnership.date_established || '',
         expiration_date: partnership.expiration_date || '',
         status: partnership.status || 'active',
-        remarks: partnership.remarks || ''
+        remarks: partnership.remarks || '',
+        image: null
       });
+      // Set existing image preview if available
+      if (partnership.image_url) {
+        setImagePreview(partnership.image_url);
+      }
+    } else {
+      setImagePreview(null);
     }
-  }, [partnership, userDepartment]);
+  }, [partnership, userDepartment, isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +55,40 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setErrors(prev => ({ ...prev, image: 'Please select a valid image file' }));
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors(prev => ({ ...prev, image: 'Image size should be less than 5MB' }));
+        return;
+      }
+
+      setFormData(prev => ({ ...prev, image: file }));
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+      
+      // Clear error
+      setErrors(prev => ({ ...prev, image: '' }));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData(prev => ({ ...prev, image: null }));
+    setImagePreview(null);
   };
 
   const validate = () => {
@@ -89,20 +132,32 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      onSubmit(formData);
+      // Create FormData for file upload
+      const submitData = new FormData();
+      
+      // Append all form fields
+      Object.keys(formData).forEach(key => {
+        if (key === 'image' && formData.image) {
+          submitData.append('image', formData.image);
+        } else if (key !== 'image') {
+          submitData.append(key, formData[key] || '');
+        }
+      });
+      
+      onSubmit(submitData);
     }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in overflow-y-auto">
+      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full my-8">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
+        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-lg">
           <h2 className="text-2xl font-bold text-gray-900">
             {partnership ? 'Edit Partnership' : 'Create New Partnership'}
           </h2>
@@ -115,10 +170,56 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
           </button>
         </div>
 
-        
-        <form onSubmit={handleSubmit} className="p-6">
+        <form onSubmit={handleSubmit} className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-           
+            
+            {/* Image Upload - Full Width */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Partnership Image
+              </label>
+              
+              {imagePreview ? (
+                <div className="relative">
+                  <img
+                    src={imagePreview}
+                    alt="Partnership preview"
+                    className="w-full h-48 object-cover rounded-lg border-2 border-gray-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    className="cursor-pointer flex flex-col items-center"
+                  >
+                    <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-700">Click to upload image</span>
+                    <span className="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 5MB</span>
+                  </label>
+                </div>
+              )}
+              
+              {errors.image && (
+                <p className="text-red-700 text-xs mt-1">{errors.image}</p>
+              )}
+            </div>
+
+            {/* Business Name */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Business Name <span className="text-red-700">*</span>
@@ -138,7 +239,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-         
+            {/* Department */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Department <span className="text-red-700">*</span>
@@ -162,7 +263,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-        
+            {/* Status */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Status <span className="text-red-700">*</span>
@@ -179,7 +280,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               </select>
             </div>
 
-      
+            {/* Contact Person */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Contact Person <span className="text-red-700">*</span>
@@ -199,7 +300,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-         
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email <span className="text-red-700">*</span>
@@ -219,6 +320,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
+            {/* Contact Number */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Contact Number <span className="text-red-700">*</span>
@@ -238,7 +340,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-        
+            {/* Manager/Supervisor 1 */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Manager/Supervisor 1 <span className="text-red-700">*</span>
@@ -258,7 +360,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-           
+            {/* Manager/Supervisor 2 */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Manager/Supervisor 2 (Optional)
@@ -273,7 +375,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               />
             </div>
 
-         
+            {/* Date Established */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Date Established <span className="text-red-700">*</span>
@@ -292,7 +394,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-           
+            {/* Expiration Date */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Expiration Date <span className="text-red-700">*</span>
@@ -311,7 +413,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-          
+            {/* Address */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Address <span className="text-red-700">*</span>
@@ -331,7 +433,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-          
+            {/* Remarks */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Remarks (Optional)
@@ -347,7 +449,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
             </div>
           </div>
 
-
+          {/* Form Actions */}
           <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
             <button
               type="button"

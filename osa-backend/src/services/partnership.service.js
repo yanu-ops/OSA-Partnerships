@@ -28,7 +28,6 @@ class PartnershipService {
   async getPartnerships(filters = {}, userRole, userDepartment) {
     let query = supabase.from('partnerships').select('*');
 
-
     if (filters.department) {
       query = query.eq('department', filters.department);
     }
@@ -53,9 +52,25 @@ class PartnershipService {
       throw new Error('Failed to fetch partnerships');
     }
 
-    const sanitized = data.map(p => 
-      sanitizePartnershipData(p, userRole === 'viewer')
-    );
+    // Sanitize data based on user role and department
+    const sanitized = data.map(p => {
+      // Viewer: limited access to all partnerships
+      if (userRole === 'viewer') {
+        return this.sanitizeLimitedAccess(p);
+      }
+      
+      // Department: full access to own, limited to others
+      if (userRole === 'department') {
+        if (p.department === userDepartment) {
+          return p; // Full access to own department
+        } else {
+          return this.sanitizeLimitedAccess(p); // Limited access to other departments
+        }
+      }
+      
+      // Admin: full access to everything
+      return p;
+    });
 
     return sanitized;
   }
@@ -71,11 +86,21 @@ class PartnershipService {
       throw new NotFoundError('Partnership not found');
     }
 
-    if (userRole === 'department' && data.department !== userDepartment) {
-      throw new ForbiddenError('Access denied to this partnership');
+    // Apply access control
+    if (userRole === 'viewer') {
+      return this.sanitizeLimitedAccess(data);
     }
 
-    return sanitizePartnershipData(data, userRole === 'viewer');
+    if (userRole === 'department') {
+      if (data.department === userDepartment) {
+        return data; // Full access to own department
+      } else {
+        return this.sanitizeLimitedAccess(data); // Limited access to other departments
+      }
+    }
+
+    // Admin gets full access
+    return data;
   }
 
   async updatePartnership(id, updateData, userId, userRole, userDepartment) {
@@ -165,6 +190,30 @@ class PartnershipService {
     });
 
     return stats;
+  }
+
+  // Sanitize partnership data for limited access (viewers and other departments)
+  sanitizeLimitedAccess(partnership) {
+    return {
+      id: partnership.id,
+      business_name: partnership.business_name,
+      department: partnership.department,
+      date_established: partnership.date_established,
+      expiration_date: partnership.expiration_date,
+      school_year: partnership.school_year,
+      status: partnership.status,
+      image_url: partnership.image_url, // Include image for limited access
+      // Exclude sensitive information
+      // address: hidden
+      // contact_person: hidden
+      // manager_supervisor_1: hidden
+      // manager_supervisor_2: hidden
+      // email: hidden
+      // contact_number: hidden
+      // remarks: hidden
+      // created_at: hidden
+      // created_by: hidden
+    };
   }
 
   async logAudit(userId, action, tableName, recordId, oldValues, newValues) {

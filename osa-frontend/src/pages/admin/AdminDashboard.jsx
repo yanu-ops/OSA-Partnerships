@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { usePartnerships } from '../../hooks/usePartnerships';
-import { usePagination } from '../../hooks/usePagination';
 import Sidebar from '../../components/common/Sidebar';
 import PartnershipFilters from '../../components/partnerships/PartnershipFilters';
 import PartnershipList from '../../components/partnerships/PartnershipList';
@@ -31,14 +30,6 @@ const AdminDashboard = () => {
   const [selectedPartnership, setSelectedPartnership] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [partnershipToDelete, setPartnershipToDelete] = useState(null);
-
-
-  const pagination = usePagination(partnerships, 6);
-
-
-  useEffect(() => {
-    pagination.resetPagination();
-  }, [filters, pagination]);
 
   const stats = {
     total: partnerships.length,
@@ -99,7 +90,7 @@ const AdminDashboard = () => {
       <Sidebar />
       
       <main className="flex-1 p-8 overflow-y-auto">
-   
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <StatsCard
             title="Total Partnerships"
@@ -127,18 +118,19 @@ const AdminDashboard = () => {
           />
         </div>
 
-    
+        {/* Header with Add Button */}
         <div className="mb-6 flex justify-between items-center">
           <h2 className="text-xl font-semibold text-gray-900">All Partnerships</h2>
           <button
             onClick={handleCreateNew}
             className="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
           >
-            <Plus className="w-5 h-5 " />
+            <Plus className="w-5 h-5" />
             <span>Add Partnership</span>
           </button>
         </div>
 
+        {/* Filters */}
         <PartnershipFilters
           filters={filters}
           onFilterChange={updateFilters}
@@ -146,9 +138,9 @@ const AdminDashboard = () => {
           showDepartmentFilter={true}
         />
 
-   
+        {/* Partnerships List - Internal pagination */}
         <PartnershipList
-          partnerships={pagination.currentItems}
+          partnerships={partnerships}
           onEdit={handleEdit}
           onDelete={handleDeleteClick}
           onView={handleView}
@@ -156,9 +148,11 @@ const AdminDashboard = () => {
           showFullDetails={true}
           groupByDepartment={true}
           userDepartment={user?.department}
+          userRole={user?.role}
+          itemsPerPage={6}
         />
 
-     
+        {/* Form Modal */}
         <PartnershipForm
           isOpen={isFormOpen}
           onClose={() => {
@@ -170,7 +164,7 @@ const AdminDashboard = () => {
           loading={false}
         />
 
-
+        {/* View Modal */}
         <PartnershipModal
           isOpen={isViewModalOpen}
           onClose={() => {
@@ -180,6 +174,7 @@ const AdminDashboard = () => {
           partnership={selectedPartnership}
         />
 
+        {/* Delete Confirmation */}
         <ConfirmDialog
           isOpen={isDeleteDialogOpen}
           onClose={() => setIsDeleteDialogOpen(false)}

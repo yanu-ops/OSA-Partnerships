@@ -1,12 +1,26 @@
 const partnershipService = require('../services/partnership.service');
+const { uploadImage, deleteImage } = require('../utils/fileUpload');
 
 class PartnershipController {
   async create(req, res, next) {
     try {
+      let imageUrl = null;
+
+      // Handle image upload if present
+      if (req.file) {
+        imageUrl = await uploadImage(req.file.buffer, req.file.originalname);
+      }
+
+      const partnershipData = {
+        ...req.body,
+        image_url: imageUrl
+      };
+
       const partnership = await partnershipService.createPartnership(
-        req.body,
+        partnershipData,
         req.user.id
       );
+
       res.status(201).json({
         success: true,
         message: 'Partnership created successfully',
@@ -60,13 +74,39 @@ class PartnershipController {
 
   async update(req, res, next) {
     try {
+      let imageUrl = req.body.image_url; // Keep existing image by default
+
+      // Handle new image upload
+      if (req.file) {
+        // Get old partnership to delete old image
+        const oldPartnership = await partnershipService.getPartnershipById(
+          req.params.id,
+          req.user.role,
+          req.user.department
+        );
+
+        // Upload new image
+        imageUrl = await uploadImage(req.file.buffer, req.file.originalname);
+
+        // Delete old image if it exists
+        if (oldPartnership.image_url) {
+          await deleteImage(oldPartnership.image_url);
+        }
+      }
+
+      const partnershipData = {
+        ...req.body,
+        image_url: imageUrl
+      };
+
       const partnership = await partnershipService.updatePartnership(
         req.params.id,
-        req.body,
+        partnershipData,
         req.user.id,
         req.user.role,
         req.user.department
       );
+
       res.json({
         success: true,
         message: 'Partnership updated successfully',
@@ -79,12 +119,25 @@ class PartnershipController {
 
   async delete(req, res, next) {
     try {
+      // Get partnership to delete its image
+      const partnership = await partnershipService.getPartnershipById(
+        req.params.id,
+        req.user.role,
+        req.user.department
+      );
+
       const result = await partnershipService.deletePartnership(
         req.params.id,
         req.user.id,
         req.user.role,
         req.user.department
       );
+
+      // Delete image if it exists
+      if (partnership.image_url) {
+        await deleteImage(partnership.image_url);
+      }
+
       res.json({
         success: true,
         message: result.message

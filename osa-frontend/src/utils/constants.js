@@ -1,11 +1,11 @@
 export const DEPARTMENTS = [
-  { value: 'STE', label: 'Science, Technology, Engineering' },
-  { value: 'CET', label: 'Computer Engineering Technology' },
-  { value: 'CCJE', label: 'Criminology and Criminal Justice Education' },
-  { value: 'HuSoCom', label: 'Hotel and Restaurant Services Community' },
-  { value: 'BSMT', label: 'Marine Transportation' },
-  { value: 'SBME', label: 'Marine Engineering' },
-  { value: 'CHATME', label: 'Teaching and Maritime Education' }
+  { value: 'STE', label: 'School of Teacher Education' },
+  { value: 'CET', label: 'College of Engineering and Technology' },
+  { value: 'CCJE', label: 'College of Criminal Justice Education' },
+  { value: 'HuSoCom', label: 'Humanities, Social Sciences and Communication' },
+  { value: 'BSMT', label: 'Bachelor of Science in Marine Transportation' },
+  { value: 'SBME', label: 'School of Business and Management Education' },
+  { value: 'CHATME', label: 'College of Hospitality and Tourism Management Education' }
 ];
 
 export const PARTNERSHIP_STATUS = [

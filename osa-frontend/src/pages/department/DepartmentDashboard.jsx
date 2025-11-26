@@ -1,3 +1,6 @@
+// src/pages/department/DepartmentDashboard.jsx
+// Fixed pagination - removed external pagination
+
 import React, { useState } from 'react';
 import { Plus, Building2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
@@ -14,17 +17,17 @@ import { getDepartmentLabel } from '../../utils/helpers';
 
 const DepartmentDashboard = () => {
   const { user } = useAuth();
-  const [viewMode, setViewMode] = useState('own'); 
+  const [viewMode, setViewMode] = useState('own'); // 'own' or 'all'
   
-
+  // Hooks
   const ownPartnershipsHook = usePartnerships({ department: user?.department });
   const allPartnershipsHook = usePartnerships();
 
-  
+  // Use currentHook to read filters & CRUD functions for the currently visible view
   const currentHook = viewMode === 'own' ? ownPartnershipsHook : allPartnershipsHook;
 
   const {
-    partnerships, 
+    partnerships,
     loading,
     filters,
     updateFilters,
@@ -34,23 +37,23 @@ const DepartmentDashboard = () => {
     deletePartnership
   } = currentHook;
 
-
+  // Always derive the user's own partnerships from the dedicated hook
   const ownPartnerships = ownPartnershipsHook.partnerships || [];
 
-  
+  // Compute other departments
   const otherPartnershipsAll = (allPartnershipsHook.partnerships || []).filter(
     p => p.department !== user?.department
   );
   const otherPartnershipsCount = otherPartnershipsAll.length;
 
- 
+  // Filtered other partnerships
   const otherPartnerships = viewMode === 'all'
     ? (partnerships || []).filter(p => p.department !== user?.department)
     : [];
 
   const displayPartnerships = viewMode === 'own' ? ownPartnerships : otherPartnerships;
 
- 
+  // Stats always based on own partnerships
   const stats = {
     total: ownPartnerships.length,
     active: ownPartnerships.filter(p => p.status === 'active').length,
@@ -116,7 +119,7 @@ const DepartmentDashboard = () => {
       <Navbar />
       
       <main className="max-w-7xl mx-auto p-8">
- 
+        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {user?.department} Department Dashboard
@@ -124,6 +127,7 @@ const DepartmentDashboard = () => {
           <p className="text-gray-700">{getDepartmentLabel(user?.department)}</p>
         </div>
 
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <StatsCard
             title="Total Partnerships"
@@ -151,7 +155,7 @@ const DepartmentDashboard = () => {
           />
         </div>
 
-
+        {/* View Toggle */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex space-x-2 bg-white rounded-lg shadow-md border border-gray-200 p-1">
             <button
@@ -179,7 +183,7 @@ const DepartmentDashboard = () => {
           {viewMode === 'own' && (
             <button
               onClick={handleCreateNew}
-              className="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors"
             >
               <Plus className="w-5 h-5" />
               <span>Add Partnership</span>
@@ -187,16 +191,8 @@ const DepartmentDashboard = () => {
           )}
         </div>
 
-    
-        {viewMode === 'all' && (
-          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
-              <strong>Note:</strong> You have read-only access to partnerships from other departments. 
-              You can view details but cannot edit or delete them.
-            </p>
-          </div>
-        )}
 
+        {/* Filters */}
         <PartnershipFilters
           filters={filters}
           onFilterChange={updateFilters}
@@ -204,7 +200,7 @@ const DepartmentDashboard = () => {
           showDepartmentFilter={viewMode === 'all'}
         />
 
-
+        {/* Partnerships List - Internal pagination */}
         <PartnershipList
           partnerships={displayPartnerships}
           onEdit={handleEdit}
@@ -214,8 +210,11 @@ const DepartmentDashboard = () => {
           showFullDetails={true}
           groupByDepartment={viewMode === 'all'}
           userDepartment={user?.department}
+          userRole={user?.role}
+          itemsPerPage={6}
         />
 
+        {/* Form Modal (Only for own partnerships) */}
         <PartnershipForm
           isOpen={isFormOpen}
           onClose={() => {
@@ -228,7 +227,7 @@ const DepartmentDashboard = () => {
           userDepartment={user?.department}
         />
 
- 
+        {/* View Modal */}
         <PartnershipModal
           isOpen={isViewModalOpen}
           onClose={() => {
@@ -236,9 +235,10 @@ const DepartmentDashboard = () => {
             setSelectedPartnership(null);
           }}
           partnership={selectedPartnership}
+          isLimitedAccess={viewMode === 'all'}
         />
 
-     
+        {/* Delete Confirmation */}
         <ConfirmDialog
           isOpen={isDeleteDialogOpen}
           onClose={() => setIsDeleteDialogOpen(false)}

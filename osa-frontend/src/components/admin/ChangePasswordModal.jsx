@@ -59,13 +59,13 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fade-in">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
         {/* Header */}
-        <div className="bg-yellow-50 border-b border-yellow-200 p-6 flex items-center justify-between rounded-t-lg">
+        <div className="bg-red-700 border-b border-red-200 p-6 flex items-center justify-between rounded-t-lg">
           <div className="flex items-center space-x-3">
-            <div className="bg-yellow-100 p-2 rounded-lg">
-              <Key className="w-6 h-6 text-yellow-700" />
+            <div className="bg-red-50 p-2 rounded-lg">
+              <Key className="w-6 h-6 text-red-700" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900">Change Password</h2>
@@ -103,7 +103,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
                   name="newPassword"
                   value={formData.newPassword}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent ${
+                  className={`w-full px-4 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
                     errors.newPassword ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Enter new password"
@@ -137,7 +137,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent ${
+                  className={`w-full px-4 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
                     errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Confirm new password"
@@ -156,8 +156,8 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
             </div>
 
             {/* Warning */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-              <p className="text-xs text-yellow-800">
+            <div className="bg-red-50 border border-red-500 rounded-lg p-3">
+              <p className="text-xs text-red-800">
                 <strong>Note:</strong> The user will need to use this new password for their next login.
               </p>
             </div>
@@ -175,7 +175,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors disabled:bg-yellow-400 disabled:cursor-not-allowed"
+              className="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors disabled:bg-red-400 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? 'Changing...' : 'Change Password'}
