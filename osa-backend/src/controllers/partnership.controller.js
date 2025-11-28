@@ -6,7 +6,6 @@ class PartnershipController {
     try {
       let imageUrl = null;
 
-      // Handle image upload if present
       if (req.file) {
         imageUrl = await uploadImage(req.file.buffer, req.file.originalname);
       }
@@ -74,21 +73,21 @@ class PartnershipController {
 
   async update(req, res, next) {
     try {
-      let imageUrl = req.body.image_url; // Keep existing image by default
+      let imageUrl = req.body.image_url; 
 
-      // Handle new image upload
+ 
       if (req.file) {
-        // Get old partnership to delete old image
+  
         const oldPartnership = await partnershipService.getPartnershipById(
           req.params.id,
           req.user.role,
           req.user.department
         );
 
-        // Upload new image
+
         imageUrl = await uploadImage(req.file.buffer, req.file.originalname);
 
-        // Delete old image if it exists
+  
         if (oldPartnership.image_url) {
           await deleteImage(oldPartnership.image_url);
         }
@@ -119,7 +118,7 @@ class PartnershipController {
 
   async delete(req, res, next) {
     try {
-      // Get partnership to delete its image
+
       const partnership = await partnershipService.getPartnershipById(
         req.params.id,
         req.user.role,
@@ -133,7 +132,7 @@ class PartnershipController {
         req.user.department
       );
 
-      // Delete image if it exists
+
       if (partnership.image_url) {
         await deleteImage(partnership.image_url);
       }

@@ -81,10 +81,10 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
           </button>
         </div>
 
-        {/* Form */}
+   
         <form onSubmit={handleSubmit} className="p-6">
           <div className="space-y-4">
-            {/* User Info */}
+      
             <div className="bg-gray-50 rounded-lg p-3 mb-4">
               <p className="text-sm text-gray-600">
                 You are changing the password for:
@@ -92,7 +92,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
               <p className="font-medium text-gray-900">{user?.email}</p>
             </div>
 
-            {/* New Password */}
+          
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 New Password <span className="text-red-500">*</span>
@@ -126,7 +126,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Confirm Password */}
+  
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Confirm New Password <span className="text-red-500">*</span>
@@ -155,7 +155,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
               )}
             </div>
 
-            {/* Warning */}
+    
             <div className="bg-red-50 border border-red-500 rounded-lg p-3">
               <p className="text-xs text-red-800">
                 <strong>Note:</strong> The user will need to use this new password for their next login.
@@ -163,7 +163,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSubmit, user }) => {
             </div>
           </div>
 
-          {/* Form Actions */}
+ 
           <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
             <button
               type="button"

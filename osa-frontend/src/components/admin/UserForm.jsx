@@ -243,7 +243,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
                 name="is_active"
                 checked={formData.is_active}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-blue-800 border-gray-300 rounded focus:ring-blue-800"
               />
               <label className="ml-2 text-sm font-medium text-gray-700">
                 Active User
@@ -263,7 +263,7 @@ const UserForm = ({ isOpen, onClose, onSubmit, user }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed"
+              className="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-700 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? 'Saving...' : (user ? 'Update User' : 'Create User')}

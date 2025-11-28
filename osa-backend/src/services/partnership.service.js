@@ -192,7 +192,7 @@ class PartnershipService {
     return stats;
   }
 
-  // Sanitize partnership data for limited access (viewers and other departments)
+  
   sanitizeLimitedAccess(partnership) {
     return {
       id: partnership.id,
@@ -202,17 +202,7 @@ class PartnershipService {
       expiration_date: partnership.expiration_date,
       school_year: partnership.school_year,
       status: partnership.status,
-      image_url: partnership.image_url, // Include image for limited access
-      // Exclude sensitive information
-      // address: hidden
-      // contact_person: hidden
-      // manager_supervisor_1: hidden
-      // manager_supervisor_2: hidden
-      // email: hidden
-      // contact_number: hidden
-      // remarks: hidden
-      // created_at: hidden
-      // created_by: hidden
+      image_url: partnership.image_url, 
     };
   }
 

@@ -40,7 +40,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
         remarks: partnership.remarks || '',
         image: null
       });
-      // Set existing image preview if available
+   
       if (partnership.image_url) {
         setImagePreview(partnership.image_url);
       }
@@ -60,13 +60,13 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type
+      
       if (!file.type.startsWith('image/')) {
         setErrors(prev => ({ ...prev, image: 'Please select a valid image file' }));
         return;
       }
       
-      // Validate file size (max 5MB)
+  
       if (file.size > 5 * 1024 * 1024) {
         setErrors(prev => ({ ...prev, image: 'Image size should be less than 5MB' }));
         return;
@@ -74,14 +74,14 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
 
       setFormData(prev => ({ ...prev, image: file }));
       
-      // Create preview
+  
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
       
-      // Clear error
+
       setErrors(prev => ({ ...prev, image: '' }));
     }
   };
@@ -135,10 +135,10 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      // Create FormData for file upload
+      
       const submitData = new FormData();
       
-      // Append all form fields
+  
       Object.keys(formData).forEach(key => {
         if (key === 'image' && formData.image) {
           submitData.append('image', formData.image);
@@ -156,7 +156,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in overflow-y-auto">
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full my-8">
-        {/* Header */}
+    
         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-lg">
           <h2 className="text-2xl font-bold text-gray-900">
             {partnership ? 'Edit Partnership' : 'Create New Partnership'}
@@ -173,7 +173,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
         <form onSubmit={handleSubmit} className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Image Upload - Full Width */}
+          
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Partnership Image
@@ -219,7 +219,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Business Name */}
+       
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Business Name <span className="text-red-700">*</span>
@@ -239,7 +239,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Department */}
+       
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Department <span className="text-red-700">*</span>
@@ -263,7 +263,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Status */}
+       
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Status <span className="text-red-700">*</span>
@@ -280,7 +280,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               </select>
             </div>
 
-            {/* Contact Person */}
+         
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Contact Person <span className="text-red-700">*</span>
@@ -300,7 +300,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Email */}
+        
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email <span className="text-red-700">*</span>
@@ -320,7 +320,6 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Contact Number */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Contact Number <span className="text-red-700">*</span>
@@ -340,7 +339,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Manager/Supervisor 1 */}
+         
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Manager/Supervisor 1 <span className="text-red-700">*</span>
@@ -360,7 +359,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Manager/Supervisor 2 */}
+        
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Manager/Supervisor 2 (Optional)
@@ -375,7 +374,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               />
             </div>
 
-            {/* Date Established */}
+      
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Date Established <span className="text-red-700">*</span>
@@ -394,7 +393,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Expiration Date */}
+       
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Expiration Date <span className="text-red-700">*</span>
@@ -413,7 +412,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Address */}
+         
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Address <span className="text-red-700">*</span>
@@ -433,7 +432,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
               )}
             </div>
 
-            {/* Remarks */}
+    
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Remarks (Optional)
@@ -449,7 +448,7 @@ const PartnershipForm = ({ isOpen, onClose, onSubmit, partnership, loading, user
             </div>
           </div>
 
-          {/* Form Actions */}
+    
           <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
             <button
               type="button"

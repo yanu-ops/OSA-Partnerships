@@ -5,14 +5,14 @@ const partnershipController = require('../controllers/partnership.controller');
 const { authenticateToken, authorizeRoles } = require('../middleware/auth');
 const { partnershipValidation } = require('../middleware/validation');
 
-// Configure multer for memory storage
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
+    fileSize: 5 * 1024 * 1024 
   },
   fileFilter: (req, file, cb) => {
-    // Accept images only
+
     if (!file.mimetype.startsWith('image/')) {
       return cb(new Error('Only image files are allowed'), false);
     }

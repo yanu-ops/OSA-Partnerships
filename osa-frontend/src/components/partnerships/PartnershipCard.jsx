@@ -5,11 +5,11 @@ import { formatDate, getStatusColor, getDepartmentLabel } from '../../utils/help
 const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showFullDetails, isLimitedAccess = false }) => {
   const statusColor = getStatusColor(partnership.status);
 
-  // Limited Access View - Only basic information
+
   if (isLimitedAccess) {
     return (
       <div className="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow overflow-hidden relative">
-        {/* Image */}
+  
         {partnership.image_url ? (
           <div className="h-40 overflow-hidden bg-gray-100">
             <img
@@ -24,7 +24,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
           </div>
         )}
 
-        {/* Limited Access Badge */}
+  
         <div className="absolute top-4 right-4">
           <div className="bg-gray-900 bg-opacity-75 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
             <Lock className="w-3 h-3" />
@@ -32,22 +32,21 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
           </div>
         </div>
 
-        {/* Content */}
         <div className="p-6">
-          {/* Header */}
+    
           <div className="mb-4">
             <h3 className="font-semibold text-lg text-gray-900 mb-1">{partnership.business_name}</h3>
             <p className="text-sm text-gray-500">{getDepartmentLabel(partnership.department)}</p>
           </div>
 
-          {/* Status */}
+
           <div className="mb-4">
             <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor}`}>
               {partnership.status.replace('_', ' ').toUpperCase()}
             </span>
           </div>
 
-          {/* Limited Details */}
+      
           <div className="space-y-3 mb-4">
             <div className="flex items-center text-sm text-gray-600">
               <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -65,14 +64,14 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
             )}
           </div>
 
-          {/* Limited Access Notice */}
+   
           <div className="pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500 italic">
               🔒 Contact details restricted
             </p>
           </div>
 
-          {/* Actions - View Only */}
+      
           <div className="mt-4">
             <button
               onClick={() => onView(partnership)}
@@ -87,10 +86,10 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
     );
   }
 
-  // Full Access View - All information
+
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow overflow-hidden">
-      {/* Image */}
+  
       {partnership.image_url ? (
         <div className="h-40 overflow-hidden bg-gray-100">
           <img
@@ -105,9 +104,9 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
         </div>
       )}
 
-      {/* Content */}
+  
       <div className="p-6">
-        {/* Header */}
+    
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <h3 className="font-semibold text-lg text-gray-900 mb-1">{partnership.business_name}</h3>
@@ -119,7 +118,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
           </span>
         </div>
 
-        {/* Details */}
+  
         <div className="space-y-3 mb-4">
           {partnership.contact_person && (
             <div className="flex items-center text-sm text-gray-800">
@@ -158,7 +157,7 @@ const PartnershipCard = ({ partnership, onEdit, onDelete, onView, canEdit, showF
           )}
         </div>
 
-        {/* Actions */}
+    
         <div className="flex items-center space-x-2 pt-4 border-t border-gray-200">
           <button
             onClick={() => onView(partnership)}

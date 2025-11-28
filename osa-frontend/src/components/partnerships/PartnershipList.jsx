@@ -16,23 +16,23 @@ const PartnershipList = ({
   itemsPerPage = 3 
 }) => {
   
-  // Helper function to determine if partnership should have limited access
+ 
   const isLimitedAccess = (partnership) => {
-    // Viewer: limited access to all partnerships
+   
     if (userRole === 'viewer') {
       return true;
     }
     
-    // Department: limited access to other departments only
+  
     if (userRole === 'department' && userDepartment) {
       return partnership.department !== userDepartment;
     }
     
-    // Admin: full access to everything
+
     return false;
   };
 
-    // Non-grouped view with single pagination
+  
     const mainPagination = usePagination(partnerships, itemsPerPage);
 
   if (partnerships.length === 0) {
@@ -101,7 +101,7 @@ const PartnershipList = ({
   );
 };
 
-// Separate component for department section with its own pagination
+
 const DepartmentSection = ({ 
   dept, 
   deptPartnerships, 
@@ -147,7 +147,7 @@ const DepartmentSection = ({
         ))}
       </div>
 
-      {/* Show pagination if more than itemsPerPage items */}
+      
       {deptPagination.totalPages > 1 && (
         <SimplePagination pagination={deptPagination} />
       )}
@@ -155,7 +155,7 @@ const DepartmentSection = ({
   );
 };
 
-// Simple Previous/Next pagination component
+
 const SimplePagination = ({ pagination }) => {
   const { currentPage, totalPages, handlePageChange, totalItems } = pagination;
   

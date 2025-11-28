@@ -44,7 +44,7 @@ class PartnershipService {
 
   async create(partnershipData) {
     try {
-      // partnershipData is FormData from the form
+     
       const response = await api.post(
         API_ENDPOINTS.PARTNERSHIPS.BASE,
         partnershipData,
@@ -69,7 +69,7 @@ class PartnershipService {
 
   async update(id, partnershipData) {
     try {
-      // partnershipData is FormData from the form
+    
       const response = await api.put(
         API_ENDPOINTS.PARTNERSHIPS.BY_ID(id),
         partnershipData,

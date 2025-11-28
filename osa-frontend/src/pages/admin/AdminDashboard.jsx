@@ -118,7 +118,7 @@ const AdminDashboard = () => {
           />
         </div>
 
-        {/* Header with Add Button */}
+ 
         <div className="mb-6 flex justify-between items-center">
           <h2 className="text-xl font-semibold text-gray-900">All Partnerships</h2>
           <button
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
           </button>
         </div>
 
-        {/* Filters */}
+  
         <PartnershipFilters
           filters={filters}
           onFilterChange={updateFilters}
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
           showDepartmentFilter={true}
         />
 
-        {/* Partnerships List - Internal pagination */}
+     
         <PartnershipList
           partnerships={partnerships}
           onEdit={handleEdit}
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
           itemsPerPage={6}
         />
 
-        {/* Form Modal */}
+    
         <PartnershipForm
           isOpen={isFormOpen}
           onClose={() => {
@@ -164,7 +164,7 @@ const AdminDashboard = () => {
           loading={false}
         />
 
-        {/* View Modal */}
+
         <PartnershipModal
           isOpen={isViewModalOpen}
           onClose={() => {
@@ -174,7 +174,6 @@ const AdminDashboard = () => {
           partnership={selectedPartnership}
         />
 
-        {/* Delete Confirmation */}
         <ConfirmDialog
           isOpen={isDeleteDialogOpen}
           onClose={() => setIsDeleteDialogOpen(false)}

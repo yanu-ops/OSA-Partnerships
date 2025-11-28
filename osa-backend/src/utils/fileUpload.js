@@ -1,5 +1,3 @@
-// osa-backend/src/utils/fileUpload.js
-
 const supabase = require('../config/supabase');
 const path = require('path');
 
@@ -12,11 +10,10 @@ const path = require('path');
  */
 const uploadImage = async (fileBuffer, originalName, folder = 'partnerships') => {
   try {
-    // Generate unique filename
+
     const fileExt = path.extname(originalName);
     const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(7)}${fileExt}`;
 
-    // Upload to Supabase Storage
     const { data, error } = await supabase.storage
       .from('partnership-images')
       .upload(fileName, fileBuffer, {
@@ -29,7 +26,7 @@ const uploadImage = async (fileBuffer, originalName, folder = 'partnerships') =>
       throw new Error('Failed to upload image');
     }
 
-    // Get public URL
+
     const { data: urlData } = supabase.storage
       .from('partnership-images')
       .getPublicUrl(fileName);
@@ -50,7 +47,7 @@ const deleteImage = async (imageUrl) => {
   try {
     if (!imageUrl) return true;
 
-    // Extract file path from URL
+
     const urlParts = imageUrl.split('/partnership-images/');
     if (urlParts.length < 2) return true;
     

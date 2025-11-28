@@ -7,13 +7,13 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
 
   const statusColor = getStatusColor(partnership.status);
 
-  // Check if this is limited access (only has basic fields)
+ 
   const hasLimitedData = !partnership.contact_person && !partnership.email && !partnership.address;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
       <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+      
         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-2">
@@ -35,9 +35,9 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
           </button>
         </div>
 
-        {/* Content */}
+      
         <div className="p-6 space-y-6">
-          {/* Partnership Image - ALWAYS VISIBLE */}
+          
           {(partnership.image_url || isLimitedAccess || hasLimitedData) && (
             <div>
               {partnership.image_url ? (
@@ -54,7 +54,6 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           )}
 
-          {/* Status */}
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700">Status</span>
             <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor}`}>
@@ -62,7 +61,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </span>
           </div>
 
-          {/* Partnership Duration - ALWAYS VISIBLE */}
+         
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Calendar className="w-5 h-5 mr-2" />
@@ -86,7 +85,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           </div>
 
-          {/* Department Information - ALWAYS VISIBLE */}
+         
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Building2 className="w-5 h-5 mr-2" />
@@ -98,7 +97,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           </div>
 
-          {/* Limited Access Notice */}
+        
           {(isLimitedAccess || hasLimitedData) && (
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <div className="flex items-start space-x-3">
@@ -113,7 +112,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           )}
 
-          {/* Contact Information - FULL ACCESS ONLY */}
+         
           {!isLimitedAccess && !hasLimitedData && partnership.contact_person && (
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
@@ -164,7 +163,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           )}
 
-          {/* Management - FULL ACCESS ONLY */}
+        
           {!isLimitedAccess && !hasLimitedData && partnership.manager_supervisor_1 && (
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Management</h3>
@@ -183,7 +182,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
             </div>
           )}
 
-          {/* Remarks - FULL ACCESS ONLY */}
+          
           {!isLimitedAccess && !hasLimitedData && partnership.remarks && (
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
@@ -197,7 +196,7 @@ const PartnershipModal = ({ isOpen, onClose, partnership, isLimitedAccess = fals
           )}
         </div>
 
-        {/* Footer */}
+      
         <div className="border-t border-gray-200 p-6">
           <button
             onClick={onClose}
